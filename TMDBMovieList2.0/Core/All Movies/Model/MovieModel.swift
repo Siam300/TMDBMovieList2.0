@@ -24,7 +24,7 @@ struct MovieResponseWrapper: Decodable {
 }
 
 // MARK: - MoviesResponse
-struct MoviesResponse: Decodable, Identifiable, Equatable {
+struct MoviesResponse: Decodable, Identifiable, Equatable, Hashable {
     let adult: Bool
     let backdropPath: String?
     let genreIds: [Int]

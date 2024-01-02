@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct MovieDetailsView: View {
+    let movie: MoviesResponse
+    
     var body: some View {
-        Text("Movie Details View")
+        VStack {
+            Text("\(movie.title)")
+                .foregroundColor(.black)
+            MovieImageView(imagePath: movie.backdropPath ?? "")
+        }
     }
 }
 
-#Preview {
-    MovieDetailsView()
-}
+//#Preview {
+//    MovieDetailsView()
+//}
