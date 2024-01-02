@@ -13,6 +13,7 @@ enum MovieAPIError: Error {
     case requestFailed(description: String)
     case invalidStatusCode(description: Int)
     case unknownError(error: Error)
+    case unprocessableEntity(description: String)
     
     var customDescription: String {
         switch self {
@@ -21,6 +22,8 @@ enum MovieAPIError: Error {
         case let .requestFailed(description): return "Request failed: \(description)"
         case let .invalidStatusCode(statusCode): return "Invalid status code \(statusCode)"
         case let .unknownError(error): return "An unknown error occuard \(error.localizedDescription)"
+        case let .unprocessableEntity(description):
+                return "Unprocessable Entity: \(description)"
         }
     }
 }

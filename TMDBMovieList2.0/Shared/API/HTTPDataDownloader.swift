@@ -12,10 +12,9 @@ protocol HTTPDataDownloader {
 }
 
 extension HTTPDataDownloader {
-    func fetchData<T: Decodable>(as type: T.Type, endpoint: String) async throws -> T {
-        guard let url = URL(string: endpoint) else {
-            throw MovieAPIError.requestFailed(description: "Invalid URL")
-        }
+    func fetchData<T>(as type: T.Type, endpoint: String) async throws -> T where T : Decodable {        guard let url = URL(string: endpoint) else {
+        throw MovieAPIError.requestFailed(description: "Invalid URL")
+    }
         
         let (data, response) = try await URLSession.shared.data(from: url)
         

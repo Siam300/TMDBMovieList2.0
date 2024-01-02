@@ -7,44 +7,84 @@
 
 import Foundation
 
-// MARK: - MovieModel
-struct MovieResponse: Decodable {
+// MARK: - MoviesResponseWrapper
+struct MovieResponseWrapper: Decodable {
     let page: Int
-    let results: [Movie]
-    let totalPages, totalResults: Int
+    let results: [MoviesResponse]
+    let totalPages: Int
+    let totalResults: Int
+    // Other properties specific to your API response...
 
-    enum CodingKeys: String, CodingKey {
-        case page, results
+    private enum CodingKeys: String, CodingKey {
+        case page
+        case results
         case totalPages = "total_pages"
         case totalResults = "total_results"
+        // Other cases for additional properties...
     }
 }
 
-// MARK: - Result
-struct Movie: Codable, Identifiable, Equatable {
+// MARK: - MoviesResponse
+struct MoviesResponse: Decodable, Identifiable, Equatable {
     let adult: Bool
-    let backdropPath: String
-    let genreIDS: [Int]
+    let backdropPath: String?
+    let genreIds: [Int]
     let id: Int
-    let originalLanguage, originalTitle, overview: String
+    let originalLanguage: String
+    let originalTitle: String
+    let overview: String
     let popularity: Double
-    let posterPath, releaseDate, title: String
+    let posterPath: String?
+    let releaseDate: String
+    let title: String
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
+    // Other properties specific to your movie object...
 
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
-        case genreIDS = "genre_ids"
+        case genreIds = "genre_ids"
         case id
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
-        case overview, popularity
+        case overview
+        case popularity
         case posterPath = "poster_path"
         case releaseDate = "release_date"
-        case title, video
+        case title
+        case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        // Other cases for additional properties...
     }
 }
+
+//// MARK: - Movie
+//struct Movie: Identifiable, Decodable, Equatable {
+//    let id: Int
+//    let adult: Bool
+//    let backdropPath: String
+//    let genreIDs: [Int]
+//    let originalLanguage, originalTitle, overview: String
+//    let popularity: Double
+//    let posterPath, releaseDate, title: String
+//    let video: Bool
+//    let voteAverage: Double
+//    let voteCount: Int
+//
+//    enum CodingKeys: String, CodingKey {
+//        case id, adult
+//        case backdropPath = "backdrop_path"
+//        case genreIDs = "genre_ids"
+//        case originalLanguage = "original_language"
+//        case originalTitle = "original_title"
+//        case overview, popularity
+//        case posterPath = "poster_path"
+//        case releaseDate = "release_date"
+//        case title, video
+//        case voteAverage = "vote_average"
+//        case voteCount = "vote_count"
+//    }
+//}

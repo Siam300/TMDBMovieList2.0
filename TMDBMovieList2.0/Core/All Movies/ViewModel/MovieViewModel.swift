@@ -8,7 +8,7 @@
 import Foundation
 
 class MovieViewModel<Service: MovieServiceProtocol>: ObservableObject {
-    @Published var movies = [Movie]()
+    @Published var movies: [MoviesResponse] = []
     @Published var errorMessage: String?
     private let service: MovieServiceProtocol
     
@@ -17,11 +17,11 @@ class MovieViewModel<Service: MovieServiceProtocol>: ObservableObject {
     }
     
     func fetchMoviesWithCompletionHandler() {
-        service.fetchMoviesWithResult { [weak self] (result: Result<[Movie], MovieAPIError>) in
+        service.fetchMoviesWithResult { [weak self] (result: Result<[MoviesResponse], MovieAPIError>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let movies):
-                    self?.movies = movies
+                    self?.movies = movies 
                 case .failure(let error):
                     self?.errorMessage = error.customDescription
                 }

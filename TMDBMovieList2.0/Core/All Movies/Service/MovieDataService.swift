@@ -8,20 +8,31 @@
 import Foundation
 
 protocol MovieServiceProtocol {
-    func fetchMoviesWithResult(completion: @escaping (Result<[Movie], MovieAPIError>) -> Void)
+    func fetchMoviesWithResult(completion: @escaping (Result<[MoviesResponse], MovieAPIError>) -> Void)
 }
 
 class MovieDataService: HTTPDataDownloader, MovieServiceProtocol {
-    func fetchMoviesWithResult() async throws -> [Movie] {
+    private var page = 1
+    
+    func fetchMoviesWithResult(completion: @escaping (Result<[MoviesResponse], MovieAPIError>) -> Void) async {
+        print("Debug: Page before: \(page)")
         page += 1
+        print("Debug: Page after: \(page)")
         
         guard let endpoint = allMoviesURLString else {
-            throw MovieAPIError.requestFailed(description: "Invalid API")
+            completion(.failure(.requestFailed(description: "Invalid API")))
+            return
         }
-        return try await fetchData(as: [Movie].self, endpoint: endpoint)
+
+        do {
+            let movies = try await fetchData(as: [MovieResponseWrapper].self, endpoint: endpoint)
+                .flatMap { $0.results } // Flatten the nested array
+            completion(.success(movies))
+        } catch {
+            print("Debug: Failed to fetch movies with error: \(error)")
+            completion(.failure(.unknownError(error: error)))
+        }
     }
-    
-    private var page = 0
     
     private var baseUrlComponents: URLComponents {
         var components = URLComponents()
@@ -51,35 +62,38 @@ class MovieDataService: HTTPDataDownloader, MovieServiceProtocol {
 }
 
 extension MovieDataService {
-    func fetchMoviesWithResult(completion: @escaping (Result<[Movie], MovieAPIError>) -> Void) {
+    func fetchMoviesWithResult(completion: @escaping (Result<[MoviesResponse], MovieAPIError>) -> Void) {
         guard let url = URL(string: allMoviesURLString ?? "") else {
             completion(.failure(.requestFailed(description: "Invalid URL")))
             return
         }
-        
+
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(.unknownError(error: error)))
                 return
             }
-            
+
             guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(.requestFailed(description: "Request failed")))
                 return
             }
-            
+
             guard httpResponse.statusCode == 200 else {
                 completion(.failure(.invalidStatusCode(description: httpResponse.statusCode)))
                 return
             }
-            
+
             guard let data = data else {
                 completion(.failure(.invalidData))
                 return
             }
-            
+
+//            print("Debug: Raw Json Data - \(String(data: data, encoding: .utf8) ?? "")")
+
             do {
-                let movies = try JSONDecoder().decode([Movie].self, from: data)
+                let moviesResponse = try JSONDecoder().decode(MovieResponseWrapper.self, from: data)
+                let movies = moviesResponse.results
                 completion(.success(movies))
             } catch {
                 print("Debug: Failed to decode with error: \(error)")

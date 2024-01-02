@@ -10,20 +10,20 @@ import SwiftUI
 struct MovieListView: View {
     private let service: MovieServiceProtocol
     @StateObject var viewModel: MovieViewModel<MovieDataService>
-
+    
     init(service: MovieServiceProtocol) {
         self.service = service
         self._viewModel = StateObject(wrappedValue: MovieViewModel(service: service))
     }
-
+    
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.movies) { movie in
+                ForEach(viewModel.movies) { (movie: MoviesResponse) in
                     NavigationLink(destination: Text("Movie Details: \(movie.title)")) {
                         HStack(spacing: 12) {
                             Text("\(movie.title)")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.black)
                         }
                         .onAppear {
                             if movie == viewModel.movies.last {
@@ -45,7 +45,6 @@ struct MovieListView: View {
         }
     }
 }
-
 
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
