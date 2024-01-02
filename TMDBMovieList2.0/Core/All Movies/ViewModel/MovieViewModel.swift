@@ -21,12 +21,9 @@ class MovieViewModel<Service: MovieServiceProtocol>: ObservableObject {
         do {
             let movies = try await service.fetchMovies()
             self.movies.append(contentsOf: movies)
-            print("DEBUG: Did fetch Movies")
         } catch {
             guard let error = error as? MovieAPIError else { return }
             self.errorMessage = error.customDescription
         }
     }
-
 }
-

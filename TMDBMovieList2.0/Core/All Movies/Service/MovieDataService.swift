@@ -8,7 +8,6 @@
 import Foundation
 
 protocol MovieServiceProtocol {
-    func fetchMoviesWithResult(completion: @escaping (Result<[MoviesResponse], MovieAPIError>) -> Void)
     func fetchMovies() async throws -> [MoviesResponse]
 }
 
@@ -16,9 +15,7 @@ class MovieDataService: HTTPDataDownloader, MovieServiceProtocol {
     private var page = 0
     
     //MARK: - Async/ Await
-    
     func fetchMovies() async throws -> [MoviesResponse] {
-        print("Debug: Page value: \(page)")
         page += 1
 
         guard let endpoint = allMoviesURLString else {
@@ -58,49 +55,5 @@ class MovieDataService: HTTPDataDownloader, MovieServiceProtocol {
         ]
         
         return components.url?.absoluteString
-    }
-}
-
-// MARK: -Complesion Handler
-
-extension MovieDataService {
-    func fetchMoviesWithResult(completion: @escaping (Result<[MoviesResponse], MovieAPIError>) -> Void) {
-        guard let url = URL(string: allMoviesURLString ?? "") else {
-            completion(.failure(.requestFailed(description: "Invalid URL")))
-            return
-        }
-
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completion(.failure(.unknownError(error: error)))
-                return
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(.requestFailed(description: "Request failed")))
-                return
-            }
-
-            guard httpResponse.statusCode == 200 else {
-                completion(.failure(.invalidStatusCode(description: httpResponse.statusCode)))
-                return
-            }
-
-            guard let data = data else {
-                completion(.failure(.invalidData))
-                return
-            }
-
-            print("Debug: Raw Json Data - \(String(data: data, encoding: .utf8) ?? "")")
-
-            do {
-                let moviesResponse = try JSONDecoder().decode(MovieResponseWrapper.self, from: data)
-                let movies = moviesResponse.results
-                completion(.success(movies))
-            } catch {
-                print("Debug: Failed to decode with error: \(error)")
-                completion(.failure(.jsonParsingFaliure))
-            }
-        }.resume()
     }
 }
