@@ -11,7 +11,9 @@ import SwiftUI
 struct TMDBMovieList2_0App: App {
     var body: some Scene {
         WindowGroup {
-            MovieListView()
+            let movieService: MovieServiceProtocol = MovieDataService()
+            MovieListView(service: movieService)
         }
     }
 }
+
