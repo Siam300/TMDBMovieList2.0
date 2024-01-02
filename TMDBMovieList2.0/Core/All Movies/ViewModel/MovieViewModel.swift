@@ -16,16 +16,17 @@ class MovieViewModel<Service: MovieServiceProtocol>: ObservableObject {
         self.service = service
     }
     
-    func fetchMoviesWithCompletionHandler() {
-        service.fetchMoviesWithResult { [weak self] (result: Result<[MoviesResponse], MovieAPIError>) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let movies):
-                    self?.movies = movies 
-                case .failure(let error):
-                    self?.errorMessage = error.customDescription
-                }
-            }
+    @MainActor
+    func fetchMovies() async {
+        do {
+            let movies = try await service.fetchMovies()
+            self.movies.append(contentsOf: movies)
+            print("DEBUG: Did fetch Movies")
+        } catch {
+            guard let error = error as? MovieAPIError else { return }
+            self.errorMessage = error.customDescription
         }
     }
+
 }
+

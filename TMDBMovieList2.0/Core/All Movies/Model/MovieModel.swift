@@ -9,18 +9,17 @@ import Foundation
 
 // MARK: - MoviesResponseWrapper
 struct MovieResponseWrapper: Decodable {
+    
     let page: Int
     let results: [MoviesResponse]
     let totalPages: Int
     let totalResults: Int
-    // Other properties specific to your API response...
 
     private enum CodingKeys: String, CodingKey {
         case page
         case results
         case totalPages = "total_pages"
         case totalResults = "total_results"
-        // Other cases for additional properties...
     }
 }
 
@@ -40,7 +39,6 @@ struct MoviesResponse: Decodable, Identifiable, Equatable {
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
-    // Other properties specific to your movie object...
 
     private enum CodingKeys: String, CodingKey {
         case adult

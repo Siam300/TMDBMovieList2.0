@@ -20,18 +20,16 @@ struct MovieListView: View {
         NavigationStack {
             List {
                 ForEach(viewModel.movies) { (movie: MoviesResponse) in
-                    NavigationLink(destination: Text("Movie Details: \(movie.title)")) {
-                        HStack(spacing: 12) {
-                            Text("\(movie.title)")
-                                .foregroundColor(.black)
-                        }
-                        .onAppear {
-                            if movie == viewModel.movies.last {
-                                Task { viewModel.fetchMoviesWithCompletionHandler() }
-                            }
-                        }
-                        .font(.footnote)
+                    HStack(spacing: 12) {
+                        Text("\(movie.title)")
+                            .foregroundColor(.black)
                     }
+                    .onAppear {
+                        if movie == viewModel.movies.last {
+                            Task { await viewModel.fetchMovies() }
+                        }
+                    }
+                    .font(.footnote)
                 }
             }
             .overlay {
@@ -41,7 +39,7 @@ struct MovieListView: View {
             }
         }
         .task {
-            viewModel.fetchMoviesWithCompletionHandler()
+            await viewModel.fetchMovies()
         }
     }
 }

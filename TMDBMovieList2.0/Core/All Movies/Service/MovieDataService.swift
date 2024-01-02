@@ -9,28 +9,28 @@ import Foundation
 
 protocol MovieServiceProtocol {
     func fetchMoviesWithResult(completion: @escaping (Result<[MoviesResponse], MovieAPIError>) -> Void)
+    func fetchMovies() async throws -> [MoviesResponse]
 }
 
 class MovieDataService: HTTPDataDownloader, MovieServiceProtocol {
-    private var page = 1
+    private var page = 0
     
-    func fetchMoviesWithResult(completion: @escaping (Result<[MoviesResponse], MovieAPIError>) -> Void) async {
-        print("Debug: Page before: \(page)")
+    //MARK: - Async/ Await
+    
+    func fetchMovies() async throws -> [MoviesResponse] {
+        print("Debug: Page value: \(page)")
         page += 1
-        print("Debug: Page after: \(page)")
-        
+
         guard let endpoint = allMoviesURLString else {
-            completion(.failure(.requestFailed(description: "Invalid API")))
-            return
+            throw MovieAPIError.requestFailed(description: "Invalid API")
         }
 
         do {
-            let movies = try await fetchData(as: [MovieResponseWrapper].self, endpoint: endpoint)
-                .flatMap { $0.results } // Flatten the nested array
-            completion(.success(movies))
+            let movieResponseWrapper = try await fetchData(as: MovieResponseWrapper.self, endpoint: endpoint)
+            let movies = movieResponseWrapper.results
+            return movies
         } catch {
-            print("Debug: Failed to fetch movies with error: \(error)")
-            completion(.failure(.unknownError(error: error)))
+            throw error
         }
     }
     
@@ -61,6 +61,8 @@ class MovieDataService: HTTPDataDownloader, MovieServiceProtocol {
     }
 }
 
+// MARK: -Complesion Handler
+
 extension MovieDataService {
     func fetchMoviesWithResult(completion: @escaping (Result<[MoviesResponse], MovieAPIError>) -> Void) {
         guard let url = URL(string: allMoviesURLString ?? "") else {
@@ -89,7 +91,7 @@ extension MovieDataService {
                 return
             }
 
-//            print("Debug: Raw Json Data - \(String(data: data, encoding: .utf8) ?? "")")
+            print("Debug: Raw Json Data - \(String(data: data, encoding: .utf8) ?? "")")
 
             do {
                 let moviesResponse = try JSONDecoder().decode(MovieResponseWrapper.self, from: data)
