@@ -20,7 +20,6 @@ class ImageLoader: ObservableObject {
     @MainActor
     private func loadImage() async {
         if let cached = ImageCache.shared.get(forKey: urlString) {
-            print("DEBUG: Did fetch image from cache")
             self.image = Image(uiImage: cached)
             return
         }
@@ -29,7 +28,6 @@ class ImageLoader: ObservableObject {
 
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            print("DEBUG: did receive data from endpoint API")
             guard let uiImage = UIImage(data: data) else { return }
             ImageCache.shared.set(uiImage, forKey: urlString)
             self.image = Image(uiImage: uiImage)

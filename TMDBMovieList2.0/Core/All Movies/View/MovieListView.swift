@@ -23,12 +23,17 @@ struct MovieListView: View {
                 ForEach(viewModel.movies) { (movie: MoviesResponse) in
                     NavigationLink(value: movie) {
                         HStack(spacing: 12) {
-                            
                             MovieImageView(imagePath: movie.posterPath ?? "")
-                                .cornerRadius(10)
+                                .cornerRadius(6)
                                 .frame(width: 120, height: 200)
                             
                             VStack(alignment: .leading) {
+                                if let rank = movieRanking(movie) {
+                                    Text("Rank: \(rank)")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                }
+                                
                                 Text("\(movie.title)")
                                     .font(.headline)
                                     .multilineTextAlignment(.leading)
@@ -39,9 +44,10 @@ struct MovieListView: View {
                                 Text("Release Date: \(movie.releaseDate)")
                                     .font(.caption)
                             }
-                            .padding()
+                            .padding(.horizontal, 5)
                             .cornerRadius(10)
                             .foregroundColor(.black)
+                            
                         }
                         .onAppear {
                             if movie == viewModel.movies.last {
@@ -50,6 +56,7 @@ struct MovieListView: View {
                         }
                         .font(.footnote)
                     }
+                    .listRowBackground(Color("movieList"))
                 }
             }
             .navigationTitle("Top Rated Movies")
@@ -63,9 +70,16 @@ struct MovieListView: View {
                 }
             }
         }
-        .task {
-            await viewModel.fetchMovies()
+        .task { await viewModel.fetchMovies() }
+    }
+    
+    func movieRanking(_ movie: MoviesResponse) -> String? {
+        guard let index = viewModel.movies.firstIndex(of: movie) else {
+            return nil
         }
+        
+        let rank = index + 1
+        return "\(rank)"
     }
 }
 
