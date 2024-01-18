@@ -8,7 +8,7 @@
 import Foundation
 
 class MovieViewModel<Service: MovieServiceProtocol>: ObservableObject {
-    @Published var movies: [MoviesResponse] = []
+    @Published var movies: [TopRatedMovies] = []
     @Published var errorMessage: String?
     private let service: MovieServiceProtocol
     
@@ -17,9 +17,9 @@ class MovieViewModel<Service: MovieServiceProtocol>: ObservableObject {
     }
     
     @MainActor
-    func fetchMovies() async {
+    func fetchTopRatedMovies() async {
         do {
-            let movies = try await service.fetchMovies()
+            let movies = try await service.fetchTopRatedMovies()
             self.movies.append(contentsOf: movies)
         } catch {
             guard let error = error as? MovieAPIError else { return }

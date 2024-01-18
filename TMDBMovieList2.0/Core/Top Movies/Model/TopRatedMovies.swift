@@ -7,11 +7,11 @@
 
 import Foundation
 
-// MARK: - MoviesResponseWrapper
-struct MovieResponseWrapper: Decodable {
+// MARK: - TopRatedMoviesWrapper
+struct TopRatedMoviesWrapper: Decodable {
     
     let page: Int
-    let results: [MoviesResponse]
+    let results: [TopRatedMovies]
     let totalPages: Int
     let totalResults: Int
 
@@ -23,8 +23,8 @@ struct MovieResponseWrapper: Decodable {
     }
 }
 
-// MARK: - MoviesResponse
-struct MoviesResponse: Decodable, Identifiable, Equatable, Hashable {
+// MARK: - TopRatedMovies
+struct TopRatedMovies: Decodable, Identifiable, Equatable, Hashable {
     let adult: Bool
     let backdropPath: String?
     let genreIds: [Int]

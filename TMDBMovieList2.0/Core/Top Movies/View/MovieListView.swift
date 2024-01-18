@@ -20,7 +20,7 @@ struct MovieListView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.movies) { (movie: MoviesResponse) in
+                ForEach(viewModel.movies) { (movie: TopRatedMovies) in
                     NavigationLink(value: movie) {
                         HStack(spacing: 12) {
                             MovieImageView(imagePath: movie.posterPath ?? "")
@@ -51,7 +51,7 @@ struct MovieListView: View {
                         }
                         .onAppear {
                             if movie == viewModel.movies.last {
-                                Task { await viewModel.fetchMovies() }
+                                Task { await viewModel.fetchTopRatedMovies() }
                             }
                         }
                         .font(.footnote)
@@ -61,7 +61,7 @@ struct MovieListView: View {
             }
             .navigationTitle("Top Rated Movies")
             .searchable(text: $searchText, prompt: "Search")
-            .navigationDestination(for: MoviesResponse.self, destination: { movie in
+            .navigationDestination(for: TopRatedMovies.self, destination: { movie in
                 MovieDetailsView(movie: movie)
             })
             .overlay {
@@ -70,10 +70,10 @@ struct MovieListView: View {
                 }
             }
         }
-        .task { await viewModel.fetchMovies() }
+        .task { await viewModel.fetchTopRatedMovies() }
     }
     
-    func movieRanking(_ movie: MoviesResponse) -> String? {
+    func movieRanking(_ movie: TopRatedMovies) -> String? {
         guard let index = viewModel.movies.firstIndex(of: movie) else {
             return nil
         }
