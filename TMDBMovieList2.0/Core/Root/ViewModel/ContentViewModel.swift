@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import Firebase
+import Combine
 
+@MainActor
 class ContentViewModel: ObservableObject {
     
 }

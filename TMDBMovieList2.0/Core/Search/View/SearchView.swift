@@ -9,11 +9,12 @@ import SwiftUI
 
 struct SearchView: View {
     @State private var searchText = ""
+    @ObservedObject var viewModel = SearchViewModel()
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach((0 ... 10), id: \.self){ user in
+                ForEach((0 ... 10), id: \.self) { user in
                         HStack{
                             Text("Movie Image")
                             
