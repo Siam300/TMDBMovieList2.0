@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     @State private var selectedIndex = 0
     let movie: Movie
+    let user: User
     let movieService: MovieServiceProtocol = MovieDataService()
     
     var body: some View {
@@ -30,7 +31,7 @@ struct MainTabView: View {
                     Image(systemName: "magnifyingglass")
                 }.tag(1)
             
-            ProfileView()
+            ProfileView(user: user)
                 .onAppear{
                     selectedIndex = 2
                 }
@@ -42,5 +43,5 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView(movie: Movie.Mock_Movies[0])
+    MainTabView(movie: Movie.Mock_Movies[0], user: User.Mock_Users[0])
 }

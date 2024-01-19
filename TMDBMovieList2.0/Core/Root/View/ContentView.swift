@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = ContentViewModel()
+    
     var body: some View {
-        MainTabView(movie: Movie.Mock_Movies[0])
+        MainTabView(movie: Movie.Mock_Movies[0], user: User.Mock_Users[0])
     }
 }
 

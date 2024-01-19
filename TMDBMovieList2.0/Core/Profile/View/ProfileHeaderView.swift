@@ -9,6 +9,15 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     @State var showEditProfile = false
+    @ObservedObject var viewModel: ProfileViewModel
+    
+    private var user: User {
+        return viewModel.user
+    }
+    
+    init(user: User) {
+        self.viewModel = ProfileViewModel(user: user)
+    }
     
     var body: some View {
         VStack(spacing: 10){
@@ -17,21 +26,18 @@ struct ProfileHeaderView: View {
                 Image(systemName: "person")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 64, height: 64)
-                
-                
-                HStack {
-
-                }
+                    .frame(width: 84, height: 84)
             }
             .padding(.horizontal)
             
             //name and bio
             VStack(alignment: .leading, spacing: 4){
                 Text("user.username")
+                
+                Text("user.fullname")
  
             }
-            .font(.footnote)
+            .font(.title3)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
             
@@ -53,16 +59,14 @@ struct ProfileHeaderView: View {
                     }
             }
             Divider()
-            
-            Spacer()
         }
 
         .fullScreenCover(isPresented: $showEditProfile) {
-            EditProfileView()
+            EditProfileView(user: user)
         }
     }
 }
 
 #Preview {
-    ProfileHeaderView()
+    ProfileHeaderView(user: User.Mock_Users[0])
 }

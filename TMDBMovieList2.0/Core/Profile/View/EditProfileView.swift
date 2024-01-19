@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import _PhotosUI_SwiftUI
 
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
-//    @Published var fullname = ""
-//    @Published var bio = ""
+    @StateObject var viewModel: EditProfileViewModel
+    
+    init(user: User) {
+        self._viewModel = StateObject(wrappedValue: EditProfileViewModel(user: user))
+    }
     
     var body: some View {
         VStack {
@@ -39,40 +43,46 @@ struct EditProfileView: View {
                     }
                 }
                 .padding(.horizontal)
-                
                 Divider()
             }
             
             //edit profile pic
-            //            PhotosPicker(selection: $viewModel.selectedImage) {
-            //                VStack {
-            //                    if let image = viewModel.profileImage {
-            //                        image
-            //                            .resizable()
-            //                            .foregroundColor(Color.white)
-            //                            .background(Color.gray)
-            //                            .clipShape(Circle())
-            //                            .frame(width: 80, height: 80)
-            //                    } else {
-            //                        CircularImageProfileView(user: viewModel.user, size: .large)
-            //                    }
-            //
-            //                    Text("Edit profile image")
-            //                        .font(.footnote)
-            //                        .fontWeight(.semibold)
-            //
-            //                    Divider()
-            //                }
-            //            }
-            .padding(.vertical, 8)
-            
-            //Name & bio
             VStack {
-//                editProfileRowView(title: "Name", placeholder: "Enter your name...", text: $fullname)
-//                editProfileRowView(title: "Bio", placeholder: "Enter your bio...", text: $bio)
+                PhotosPicker(selection: $viewModel.selectedImage) {
+                    VStack {
+                        if let image = viewModel.profileImage {
+                            image
+                                .resizable()
+                                .foregroundColor(Color.white)
+                                .background(Color.gray)
+                                .clipShape(Circle())
+                                .frame(width: 84, height: 84)
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 84, height: 84)
+                                .clipShape(Circle())
+                                .foregroundColor(Color(.systemGray4))
+                        }
+                        
+                        Text("Edit profile image")
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                    }
+                }
+                
+                Divider()
             }
-            Spacer()
+            
         }
+        .padding(.vertical, 8)
+        
+        //Name & bio
+        VStack {
+            editProfileRowView(title: "Name", placeholder: "Enter your name...", text: $viewModel.fullname)
+            editProfileRowView(title: "Bio", placeholder: "Enter your bio...", text: $viewModel.bio)
+        }
+        Spacer()
     }
 }
 
@@ -97,5 +107,5 @@ struct editProfileRowView: View {
 }
 
 #Preview {
-    EditProfileView()
+    EditProfileView(user: User.Mock_Users[0])
 }
