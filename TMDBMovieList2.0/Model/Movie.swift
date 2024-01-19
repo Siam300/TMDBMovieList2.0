@@ -7,11 +7,11 @@
 
 import Foundation
 
-// MARK: - TopRatedMoviesWrapper
-struct TopRatedMoviesWrapper: Decodable {
+// MARK: - Movie
+struct Movie: Decodable {
     
     let page: Int
-    let results: [TopRatedMovies]
+    let results: [MovieResults]
     let totalPages: Int
     let totalResults: Int
 
@@ -23,8 +23,8 @@ struct TopRatedMoviesWrapper: Decodable {
     }
 }
 
-// MARK: - TopRatedMovies
-struct TopRatedMovies: Decodable, Identifiable, Equatable, Hashable {
+// MARK: - MovieResults
+struct MovieResults: Decodable, Identifiable, Equatable, Hashable {
     let adult: Bool
     let backdropPath: String?
     let genreIds: [Int]
@@ -56,4 +56,25 @@ struct TopRatedMovies: Decodable, Identifiable, Equatable, Hashable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
+}
+
+extension Movie {
+    static var Mock_Movies: [Movie] = [
+        .init(page: 1, results: [MovieResults(
+            adult: false,
+            backdropPath: "/backdrop_path.jpg",
+            genreIds: [1, 2, 3],
+            id: 123,
+            originalLanguage: "en",
+            originalTitle: "Mock Movie",
+            overview: "This is a mock movie overview.",
+            popularity: 45.67,
+            posterPath: "/poster_path.jpg",
+            releaseDate: "2022-01-19",
+            title: "Mock Movie",
+            video: false,
+            voteAverage: 8.5,
+            voteCount: 100
+        )], totalPages: 10, totalResults: 10)
+    ]
 }

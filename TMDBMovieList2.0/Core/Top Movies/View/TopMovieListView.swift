@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct MovieListView: View {
+struct TopMovieListView: View {
     private let service: MovieServiceProtocol
-    @StateObject var viewModel: MovieViewModel<MovieDataService>
+    @StateObject var viewModel: TopMovieListViewModel<MovieDataService>
     @State private var searchText = ""
     
     init(service: MovieServiceProtocol) {
         self.service = service
-        self._viewModel = StateObject(wrappedValue: MovieViewModel(service: service))
+        self._viewModel = StateObject(wrappedValue: TopMovieListViewModel(service: service))
     }
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.movies) { (movie: TopRatedMovies) in
+                ForEach(viewModel.movies) { (movie: MovieResults) in
                     NavigationLink(value: movie) {
                         HStack(spacing: 12) {
                             MovieImageView(imagePath: movie.posterPath ?? "")
@@ -60,8 +60,8 @@ struct MovieListView: View {
                 }
             }
             .navigationTitle("Top Rated Movies")
-            .searchable(text: $searchText, prompt: "Search")
-            .navigationDestination(for: TopRatedMovies.self, destination: { movie in
+//            .searchable(text: $searchText, prompt: "Search")
+            .navigationDestination(for: MovieResults.self, destination: { movie in
                 MovieDetailsView(movie: movie)
             })
             .overlay {
@@ -73,7 +73,7 @@ struct MovieListView: View {
         .task { await viewModel.fetchTopRatedMovies() }
     }
     
-    func movieRanking(_ movie: TopRatedMovies) -> String? {
+    func movieRanking(_ movie: MovieResults) -> String? {
         guard let index = viewModel.movies.firstIndex(of: movie) else {
             return nil
         }
@@ -83,8 +83,8 @@ struct MovieListView: View {
     }
 }
 
-struct MovieListView_Previews: PreviewProvider {
+struct TopMovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView(service: MovieServiceProtocol.self as! MovieServiceProtocol)
+        TopMovieListView(service: MovieServiceProtocol.self as! MovieServiceProtocol)
     }
 }

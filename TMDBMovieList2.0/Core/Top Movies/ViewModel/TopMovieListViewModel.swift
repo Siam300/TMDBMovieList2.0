@@ -7,8 +7,8 @@
 
 import Foundation
 
-class MovieViewModel<Service: MovieServiceProtocol>: ObservableObject {
-    @Published var movies: [TopRatedMovies] = []
+class TopMovieListViewModel<Service: MovieServiceProtocol>: ObservableObject {
+    @Published var movies: [MovieResults] = []
     @Published var errorMessage: String?
     private let service: MovieServiceProtocol
     

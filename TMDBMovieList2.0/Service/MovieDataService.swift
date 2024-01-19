@@ -8,14 +8,14 @@
 import Foundation
 
 protocol MovieServiceProtocol {
-    func fetchTopRatedMovies() async throws -> [TopRatedMovies]
+    func fetchTopRatedMovies() async throws -> [MovieResults]
 }
 
 class MovieDataService: HTTPDataDownloader, MovieServiceProtocol {
     private var page = 0
     
     //MARK: - Async/ Await
-    func fetchTopRatedMovies() async throws -> [TopRatedMovies] {
+    func fetchTopRatedMovies() async throws -> [MovieResults] {
         page += 1
         
         guard let endpoint = topRatedMoviesURLString else {
@@ -23,8 +23,8 @@ class MovieDataService: HTTPDataDownloader, MovieServiceProtocol {
         }
 
         do {
-            let TopRatedMoviesWrapper = try await fetchData(as: TopRatedMoviesWrapper.self, endpoint: endpoint)
-            let movies = TopRatedMoviesWrapper.results
+            let Movie = try await fetchData(as: Movie.self, endpoint: endpoint)
+            let movies = Movie.results
             return movies
         } catch {
             throw error

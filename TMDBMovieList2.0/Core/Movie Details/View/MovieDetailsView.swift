@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieDetailsView: View {
-    let movie: TopRatedMovies
+    let movie: MovieResults
     
     var body: some View {
         ZStack {
