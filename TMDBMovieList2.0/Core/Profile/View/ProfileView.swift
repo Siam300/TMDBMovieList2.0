@@ -45,5 +45,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(user: User.Mock_Users[0])
+    ProfileView(user: User.Mock_Users)
 }

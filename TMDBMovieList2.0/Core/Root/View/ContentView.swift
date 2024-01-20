@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        MainTabView(movie: Movie.Mock_Movies[0], user: User.Mock_Users[0])
+//        MainTabView(movie: Movie.Mock_Movies[0], user: User.Mock_Users)
+        LogInView()
     }
 }
 

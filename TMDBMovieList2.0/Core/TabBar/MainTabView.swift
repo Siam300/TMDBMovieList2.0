@@ -43,5 +43,5 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView(movie: Movie.Mock_Movies[0], user: User.Mock_Users[0])
+    MainTabView(movie: Movie.Mock_Movies[0], user: User.Mock_Users)
 }

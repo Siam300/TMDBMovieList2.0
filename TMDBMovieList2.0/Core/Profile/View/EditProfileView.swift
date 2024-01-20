@@ -107,5 +107,5 @@ struct editProfileRowView: View {
 }
 
 #Preview {
-    EditProfileView(user: User.Mock_Users[0])
+    EditProfileView(user: User.Mock_Users)
 }
