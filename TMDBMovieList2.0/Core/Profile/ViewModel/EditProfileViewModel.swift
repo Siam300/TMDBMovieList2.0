@@ -21,7 +21,7 @@ class EditProfileViewModel: ObservableObject {
         didSet { Task { await loadImage(fromItem: selectedImage) } }
     }
     
-    init(user: User) {
+    init(_ user: User) {
         self.user = user
     }
     
@@ -32,6 +32,4 @@ class EditProfileViewModel: ObservableObject {
         self.profileImage = Image(uiImage: uiImage)
         self.uiImage = uiImage
     }
-    
-    
 }

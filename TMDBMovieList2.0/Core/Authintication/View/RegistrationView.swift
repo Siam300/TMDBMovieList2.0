@@ -12,6 +12,7 @@ struct RegistrationView: View {
     @State private var username = ""
     @State private var fullname = ""
     @State private var password = ""
+    @State private var navigateToMainTabView = false
     @State private var imagePickerPresented = false
     @State private var selectedImage: UIImage?
     @State private var profileImage: Image?
@@ -20,6 +21,9 @@ struct RegistrationView: View {
     
     var body: some View {
         VStack {
+//            NavigationLink(destination: MainTabView(),
+//                           isActive: $viewModel.didAuthinticateuser,
+//                           label: { } )
             VStack(alignment: .leading, spacing: 12) {
                 HStack { Spacer() }
                 Text("Get Started with TMDB.")
@@ -79,8 +83,7 @@ struct RegistrationView: View {
             
             if let image = selectedImage {
                 Button {
-                    viewModel.register(withEmail: email, password: password, fullname: fullname, username: username) //error: Thread 1: Fatal error: No ObservableObject of type AuthViewModel found. A View.environmentObject(_:) for AuthViewModel may be missing as an ancestor of this view.
-                    viewModel.uploadProfileImage(image)
+                    viewModel.register(withEmail: email, password: password, fullname: fullname, username: username, image: image)
                 } label: {
                     Text("Complete")
                         .font(.headline)

@@ -32,9 +32,9 @@ struct ProfileHeaderView: View {
             
             //name and bio
             VStack(alignment: .leading, spacing: 4){
-                Text("user.username")
+                Text("\(user.username)")
                 
-                Text("user.fullname")
+                Text("\(user.fullname)")
  
             }
             .font(.title3)
@@ -61,9 +61,9 @@ struct ProfileHeaderView: View {
             Divider()
         }
 
-        .fullScreenCover(isPresented: $showEditProfile) {
-            EditProfileView(user: user)
-        }
+//        .fullScreenCover(isPresented: $showEditProfile) {
+//            EditProfileView()
+//        }
     }
 }
 

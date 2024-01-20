@@ -24,8 +24,7 @@ struct TMDBMovieList2_0App: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(authViewModel)
+            ContentView().environmentObject(AuthViewModel.shared)
         }
     }
 }

@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct ProfileView: View {
-    let user: User
+    @ObservedObject var viewModel: EditProfileViewModel
+    @State private var showEditProfile = false
+    
+    init(user: User) {
+            self.viewModel = EditProfileViewModel(user)
+        }
     
     var body: some View {
         NavigationStack {
             VStack {
-                //header
-                ProfileHeaderView(user: user)
+                // Header
+                ProfileHeaderView(user: viewModel.user)
                 
-                //Body view
+                // Body view
                 VStack(spacing: 1) {
                     ForEach(ProfileCellViewModel.allCases, id: \.self) { viewModel in
                         ProfileCellView(viewModel: viewModel)
@@ -30,7 +35,6 @@ struct ProfileView: View {
                         AuthViewModel.shared.signOut()
                     }, label: {
                         Text("Log Out")
-                        
                             .frame(width: UIScreen.main.bounds.width, height: 40)
                             .background(Color.red)
                             .foregroundColor(.white)
@@ -43,6 +47,7 @@ struct ProfileView: View {
         }
     }
 }
+
 
 #Preview {
     ProfileView(user: User.Mock_Users)

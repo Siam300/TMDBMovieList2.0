@@ -37,7 +37,7 @@ class AuthViewModel: NSObject, ObservableObject {
         }
     }
     
-    func register(withEmail email: String, password: String, fullname: String, username: String) {
+    func register(withEmail email: String, password: String, fullname: String, username: String, image: UIImage) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 print("DEBUG: Registration failed with error \(error.localizedDescription)")
@@ -48,25 +48,26 @@ class AuthViewModel: NSObject, ObservableObject {
             
             let data: [String: Any] = [KEY_EMAIL: email,
                                        KEY_FULLNAME: fullname,
-                                       KEY_USERNAME: username]
+                                       KEY_USERNAME: username,]
             
             COLLECTION_USERS.document(user.uid).setData(data) { _ in
+                
+                // Upload profile image
+                guard let uid = self.tempCurrentUser?.uid else { return }
+                
+                ImageUploader.uploadImage(image: image) { imageUrl in
+                    COLLECTION_USERS.document(uid).updateData([KEY_PROFILE_IMAGE_URL: imageUrl]) { _ in
+                        self.userSession = self.tempCurrentUser
+                        self.fetchUser()
+                    }
+                }
+                
                 self.didAuthinticateuser = true
                 print("DEBUG: Registration successful")
             }
         }
     }
-    
-    func uploadProfileImage(_ image: UIImage) {
-        guard let uid = tempCurrentUser?.uid else { return }
-        
-        ImageUploader.uploadImage(image: image) { imageUrl in
-            COLLECTION_USERS.document(uid).updateData(["profileImageUrl": imageUrl]) { _ in
-                self.userSession = self.tempCurrentUser
-//                self.fetchUser()
-            }
-        }
-    }
+
     
     func fetchUser() {
         guard let uid = userSession?.uid else { return }
@@ -80,6 +81,7 @@ class AuthViewModel: NSObject, ObservableObject {
     
     func signOut() {
         self.userSession = nil
+        print("DEBUG: userSession = \(userSession)")
         try? Auth.auth().signOut()
     }
 }

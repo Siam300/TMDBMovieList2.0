@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAif6_iw-34rxnlVRYKAAp4UL5trULN578</string>
+	<string>AIzaSyABVnhygZWc6t65SusaouNbGHPGk0C3Rk8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>868662350953</string>
+	<string>1044542669542</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.smk.TMDBMovieList2-0</string>
 	<key>PROJECT_ID</key>
-	<string>tmdb-2f8f1</string>
+	<string>tmdb-7b445</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tmdb-2f8f1.appspot.com</string>
+	<string>tmdb-7b445.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:868662350953:ios:038103992a9c67c2947ef8</string>
+	<string>1:1044542669542:ios:68c81b855288c6c67e7127</string>
 </dict>
 </plist>

@@ -13,7 +13,7 @@ struct EditProfileView: View {
     @StateObject var viewModel: EditProfileViewModel
     
     init(user: User) {
-        self._viewModel = StateObject(wrappedValue: EditProfileViewModel(user: user))
+        self._viewModel = StateObject(wrappedValue: EditProfileViewModel(user))
     }
     
     var body: some View {
