@@ -16,7 +16,7 @@ struct RegistrationView: View {
     @State private var selectedImage: UIImage?
     @State private var profileImage: Image?
     @Environment(\.dismiss) var dismiss
-    //    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack {
@@ -77,20 +77,22 @@ struct RegistrationView: View {
             }
             .padding(.leading)
             
-            Button {
-                //                viewModel.register(withEmail: email, password: password, fullname: fullname, username: username)
-                //                viewModel.uploadProfileImage(image)
-            } label: {
-                Text("Complete")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(width: 340, height: 50)
-                    .background(.blue)
-                    .clipShape(Capsule())
-                    .padding()
+            if let image = selectedImage {
+                Button {
+                    viewModel.register(withEmail: email, password: password, fullname: fullname, username: username) //error: Thread 1: Fatal error: No ObservableObject of type AuthViewModel found. A View.environmentObject(_:) for AuthViewModel may be missing as an ancestor of this view.
+                    viewModel.uploadProfileImage(image)
+                } label: {
+                    Text("Complete")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(width: 340, height: 50)
+                        .background(.blue)
+                        .clipShape(Capsule())
+                        .padding()
+                }
+                .padding(.top, 24)
+                .shadow(color: .gray, radius: 10)
             }
-            .padding(.top, 24)
-            .shadow(color: .gray, radius: 10)
             
             Spacer()
             

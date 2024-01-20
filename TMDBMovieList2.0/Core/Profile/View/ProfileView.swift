@@ -27,7 +27,7 @@ struct ProfileView: View {
                 
                 Button(
                     action: {
-                        print("Log out")
+                        AuthViewModel.shared.signOut()
                     }, label: {
                         Text("Log Out")
                         
