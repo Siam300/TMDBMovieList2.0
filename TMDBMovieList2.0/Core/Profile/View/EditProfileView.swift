@@ -22,6 +22,7 @@ struct EditProfileView: View {
             VStack {
                 HStack {
                     Button("Cancel") {
+                        print("DEBUG: Cancel button pressed....")
                         dismiss()
                     }
                     
@@ -33,6 +34,7 @@ struct EditProfileView: View {
                     Spacer()
                     
                     Button {
+                        print("DEBUG: Done button pressed....")
                         Task {
                             dismiss()
                         }
@@ -56,19 +58,16 @@ struct EditProfileView: View {
                                 .foregroundColor(Color.white)
                                 .background(Color.gray)
                                 .clipShape(Circle())
-                                .frame(width: 84, height: 84)
+                                .frame(width: 124, height: 124)
                         } else {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 84, height: 84)
-                                .clipShape(Circle())
-                                .foregroundColor(Color(.systemGray4))
+                            CircularImageProfileView(user: viewModel.user)
                         }
                         
                         Text("Edit profile image")
                             .font(.footnote)
                             .fontWeight(.semibold)
                     }
+                    .padding()
                 }
                 
                 Divider()

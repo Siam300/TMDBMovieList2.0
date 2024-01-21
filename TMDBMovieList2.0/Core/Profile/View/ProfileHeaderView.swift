@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProfileHeaderView: View {
     @State var showEditProfile = false
@@ -22,11 +23,8 @@ struct ProfileHeaderView: View {
     var body: some View {
         VStack(spacing: 10){
             //Pic and Stats
-            HStack(spacing: 10){
-                Image(systemName: "person")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 84, height: 84)
+            HStack(spacing: 10) {
+                CircularImageProfileView(user: user)
             }
             .padding(.horizontal)
             
@@ -43,8 +41,8 @@ struct ProfileHeaderView: View {
             
             //edit profile button
             Button {
-                    showEditProfile.toggle()
-
+                showEditProfile.toggle()
+                
             } label: {
                 Text("Edit Profile")
                     .font(.subheadline)
@@ -60,10 +58,9 @@ struct ProfileHeaderView: View {
             }
             Divider()
         }
-
-//        .fullScreenCover(isPresented: $showEditProfile) {
-//            EditProfileView()
-//        }
+        .fullScreenCover(isPresented: $showEditProfile) {
+            EditProfileView(user: user)
+        }
     }
 }
 
