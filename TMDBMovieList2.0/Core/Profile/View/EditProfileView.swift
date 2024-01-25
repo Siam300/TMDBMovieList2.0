@@ -77,9 +77,29 @@ struct EditProfileView: View {
         .padding(.vertical, 8)
         
         //Name & bio
-        VStack {
-            editProfileRowView(title: "Name", placeholder: "Enter your name...", text: $viewModel.fullname)
-            editProfileRowView(title: "Bio", placeholder: "Enter your bio...", text: $viewModel.bio)
+        VStack(spacing: 15){
+            editProfileRowView(title: "Fullname", placeholder: "Update your fullname...", text: $viewModel.fullname)
+//            editProfileRowView(title: "Bio", placeholder: "Enter your bio...", text: $viewModel.bio)
+            
+            Divider()
+            
+            Button {
+                print("Full name updated")
+                viewModel.updateName(viewModel.fullname)
+            } label: {
+                Text("Update Fullname")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .frame(width: 360, height: 40)
+                    .background(.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(6)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(Color(.black), lineWidth: 1)
+                    }
+            }
+            .disabled(viewModel.isFullnameEmpty)
         }
         Spacer()
     }

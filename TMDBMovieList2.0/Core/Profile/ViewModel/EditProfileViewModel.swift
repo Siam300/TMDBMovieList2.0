@@ -25,11 +25,29 @@ class EditProfileViewModel: ObservableObject {
         self.user = user
     }
     
+    var isFullnameEmpty: Bool {
+            return fullname.isEmpty
+        }
+    
     func loadImage(fromItem item: PhotosPickerItem?) async {
         guard let item = item else { return }
         guard let data = try? await item.loadTransferable(type: Data.self) else { return }
         guard let uiImage = UIImage(data: data) else { return }
         self.profileImage = Image(uiImage: uiImage)
         self.uiImage = uiImage
+    }
+    
+    func updateName(_ name: String) {
+        guard let uid = user.id else { return }
+        let data = [KEY_FULLNAME: name]
+        
+        COLLECTION_USERS.document(uid).updateData(data) { error in
+            if let error = error {
+                print("DEBUG: Failed tp update full name with error \(error.localizedDescription)")
+                return
+            }
+            
+            self.user.fullname = name
+        }
     }
 }
