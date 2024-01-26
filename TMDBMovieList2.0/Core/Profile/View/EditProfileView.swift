@@ -83,7 +83,7 @@ struct EditProfileView: View {
                     dismiss()
                 }
             } label: {
-                Text("Update Fullname")
+                Text("Update")
                     .font(.title2)
                     .fontWeight(.bold)
                     .frame(width: 360, height: 40)
