@@ -31,18 +31,8 @@ struct EditProfileView: View {
                     Text("Edit Profile")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                    Spacer()
                     
-                    Button {
-                        print("DEBUG: Done button pressed....")
-                        Task {
-                            dismiss()
-                        }
-                    } label: {
-                        Text("Done")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                    }
+                    Spacer()
                 }
                 .padding(.horizontal)
                 Divider()
@@ -84,8 +74,14 @@ struct EditProfileView: View {
             Divider()
             
             Button {
-                print("Full name updated")
-                viewModel.updateName(viewModel.fullname)
+                print("DEBUG: Update button tapped")
+                Task {
+                    viewModel.updateName(viewModel.fullname)
+                    if let uiImage = viewModel.uiImage {
+                        viewModel.updateProfileImage(uiImage)
+                    }
+                    dismiss()
+                }
             } label: {
                 Text("Update Fullname")
                     .font(.title2)
@@ -99,7 +95,7 @@ struct EditProfileView: View {
                             .stroke(Color(.black), lineWidth: 1)
                     }
             }
-            .disabled(viewModel.isFullnameEmpty)
+            .padding()
         }
         Spacer()
     }

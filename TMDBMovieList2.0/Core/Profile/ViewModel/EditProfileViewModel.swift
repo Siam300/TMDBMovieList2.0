@@ -5,13 +5,14 @@
 //  Created by Auto on 19/1/24.
 //
 
-import Foundation
+import Firebase
+import FirebaseStorage
 import SwiftUI
 import PhotosUI
 
 @MainActor
 class EditProfileViewModel: ObservableObject {
-    private var uiImage: UIImage?
+    var uiImage: UIImage?
     
     @Published var user: User
     @Published var fullname = ""
@@ -39,15 +40,45 @@ class EditProfileViewModel: ObservableObject {
     
     func updateName(_ name: String) {
         guard let uid = user.id else { return }
-        let data = [KEY_FULLNAME: name]
         
-        COLLECTION_USERS.document(uid).updateData(data) { error in
-            if let error = error {
-                print("DEBUG: Failed tp update full name with error \(error.localizedDescription)")
-                return
-            }
+        if !name.isEmpty && user.fullname != name {
+            let data = [KEY_FULLNAME: name]
             
-            self.user.fullname = name
+            COLLECTION_USERS.document(uid).updateData(data) { error in
+                if let error = error {
+                    print("DEBUG: Failed tp update full name with error \(error.localizedDescription)")
+                    return
+                }
+                print("DEBUG: Update fullname successful")
+                self.user.fullname = name
+            }
+        }
+    }
+    
+    func updateProfileImage(_ image: UIImage) {
+        guard let uid = user.id else { return }
+        
+        if let image = uiImage {
+            let storagePath = Storage.storage().reference(forURL: user.profileImageUrl)
+            
+            storagePath.delete { error in
+                if let error = error {
+                    print("DEBUG: Error deleting user profile image \(error.localizedDescription)")
+                    return
+                }
+                
+                ImageUploader.uploadImage(image: image) { imageUrl in
+                    let data = [KEY_PROFILE_IMAGE_URL: imageUrl]
+                    COLLECTION_USERS.document(uid).updateData(data) { error in
+                        if let error = error {
+                            print("DEBUG: Failed tp update profile image with error \(error.localizedDescription)")
+                            return
+                        }
+                        print("DEBUG: Profile image update successful")
+                        self.user.profileImageUrl = imageUrl
+                    }
+                }
+            }
         }
     }
 }
