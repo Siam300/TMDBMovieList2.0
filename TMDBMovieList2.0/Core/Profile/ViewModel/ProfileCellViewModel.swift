@@ -47,4 +47,21 @@ enum ProfileCellViewModel: Int, CaseIterable {
         case .dropped: return .red
         }
     }
+    
+    func cellDestination() -> some View {
+            switch self {
+            case .bookmarked:
+                return AnyView(BookmarkedView())
+            case .favorite:
+                return AnyView(FavoriteView())
+            case .watchinglist:
+                return AnyView(WatchingListView())
+            case .completed:
+                return AnyView(CompletedView())
+            case .plantoWatch:
+                return AnyView(PlanToWatchView())
+            case .dropped:
+                return AnyView(DroppedView())
+            }
+        }
 }

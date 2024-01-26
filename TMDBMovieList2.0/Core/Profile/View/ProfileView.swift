@@ -24,7 +24,9 @@ struct ProfileView: View {
                 // Body view
                 VStack(spacing: 1) {
                     ForEach(ProfileCellViewModel.allCases, id: \.self) { viewModel in
-                        ProfileCellView(viewModel: viewModel)
+                        NavigationLink(destination: viewModel.cellDestination()) {
+                            ProfileCellView(viewModel: viewModel)
+                        }
                     }
                 }
                 

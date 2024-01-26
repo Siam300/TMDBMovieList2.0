@@ -67,6 +67,12 @@
 		C9CE7FEB2B3EC7E10086BAA2 /* MovieAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CE7FEA2B3EC7E10086BAA2 /* MovieAPIError.swift */; };
 		C9CE7FED2B3EC9C10086BAA2 /* MovieDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CE7FEC2B3EC9C10086BAA2 /* MovieDataService.swift */; };
 		C9CE7FEF2B3EC9F90086BAA2 /* HTTPDataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CE7FEE2B3EC9F90086BAA2 /* HTTPDataDownloader.swift */; };
+		C9F2B1122B6382B6003D2BF2 /* BookmarkedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F2B1112B6382B6003D2BF2 /* BookmarkedView.swift */; };
+		C9F2B1142B6382D4003D2BF2 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F2B1132B6382D4003D2BF2 /* FavoriteView.swift */; };
+		C9F2B1162B6382EB003D2BF2 /* WatchingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F2B1152B6382EB003D2BF2 /* WatchingListView.swift */; };
+		C9F2B1182B6382FE003D2BF2 /* CompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F2B1172B6382FE003D2BF2 /* CompletedView.swift */; };
+		C9F2B11A2B638312003D2BF2 /* PlanToWatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F2B1192B638312003D2BF2 /* PlanToWatchView.swift */; };
+		C9F2B11C2B638324003D2BF2 /* DroppedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F2B11B2B638324003D2BF2 /* DroppedView.swift */; };
 		C9FA7DB32B5DAAE000A2FFDD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C9FA7DB22B5DAAE000A2FFDD /* Kingfisher */; };
 		C9FA7DB52B5DAB6000A2FFDD /* CircularImageProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FA7DB42B5DAB6000A2FFDD /* CircularImageProfileView.swift */; };
 /* End PBXBuildFile section */
@@ -106,6 +112,12 @@
 		C9CE7FEA2B3EC7E10086BAA2 /* MovieAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIError.swift; sourceTree = "<group>"; };
 		C9CE7FEC2B3EC9C10086BAA2 /* MovieDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDataService.swift; sourceTree = "<group>"; };
 		C9CE7FEE2B3EC9F90086BAA2 /* HTTPDataDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDataDownloader.swift; sourceTree = "<group>"; };
+		C9F2B1112B6382B6003D2BF2 /* BookmarkedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedView.swift; sourceTree = "<group>"; };
+		C9F2B1132B6382D4003D2BF2 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
+		C9F2B1152B6382EB003D2BF2 /* WatchingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchingListView.swift; sourceTree = "<group>"; };
+		C9F2B1172B6382FE003D2BF2 /* CompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedView.swift; sourceTree = "<group>"; };
+		C9F2B1192B638312003D2BF2 /* PlanToWatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanToWatchView.swift; sourceTree = "<group>"; };
+		C9F2B11B2B638324003D2BF2 /* DroppedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedView.swift; sourceTree = "<group>"; };
 		C9FA7DB42B5DAB6000A2FFDD /* CircularImageProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +239,7 @@
 		C90B260B2B5ADE5E00C37C22 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C9F2B1102B6382A9003D2BF2 /* Cells view */,
 				C90B260C2B5ADE9900C37C22 /* ProfileView.swift */,
 				C90B260E2B5ADEF900C37C22 /* ProfileHeaderView.swift */,
 				C90B26102B5AE09E00C37C22 /* EditProfileView.swift */,
@@ -461,6 +474,19 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		C9F2B1102B6382A9003D2BF2 /* Cells view */ = {
+			isa = PBXGroup;
+			children = (
+				C9F2B1112B6382B6003D2BF2 /* BookmarkedView.swift */,
+				C9F2B1132B6382D4003D2BF2 /* FavoriteView.swift */,
+				C9F2B1152B6382EB003D2BF2 /* WatchingListView.swift */,
+				C9F2B1172B6382FE003D2BF2 /* CompletedView.swift */,
+				C9F2B1192B638312003D2BF2 /* PlanToWatchView.swift */,
+				C9F2B11B2B638324003D2BF2 /* DroppedView.swift */,
+			);
+			path = "Cells view";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -573,14 +599,18 @@
 				C9FA7DB52B5DAB6000A2FFDD /* CircularImageProfileView.swift in Sources */,
 				C9CE7FED2B3EC9C10086BAA2 /* MovieDataService.swift in Sources */,
 				C90C0B8B2B5BCF4100B497CF /* Constants.swift in Sources */,
+				C9F2B1162B6382EB003D2BF2 /* WatchingListView.swift in Sources */,
 				C90C0B8D2B5BCFB100B497CF /* ImageUploader.swift in Sources */,
 				C90B261A2B5AF33A00C37C22 /* ProfileCellView.swift in Sources */,
+				C9F2B1122B6382B6003D2BF2 /* BookmarkedView.swift in Sources */,
 				C90B261C2B5AF34D00C37C22 /* ProfileCellViewModel.swift in Sources */,
+				C9F2B11A2B638312003D2BF2 /* PlanToWatchView.swift in Sources */,
 				C9CE7FEF2B3EC9F90086BAA2 /* HTTPDataDownloader.swift in Sources */,
 				C9986D462B41C36700788D9E /* MovieDetailsView.swift in Sources */,
 				C90B26172B5AEEFC00C37C22 /* ProfileViewModel.swift in Sources */,
 				C90B260F2B5ADEF900C37C22 /* ProfileHeaderView.swift in Sources */,
 				C9CE7FEB2B3EC7E10086BAA2 /* MovieAPIError.swift in Sources */,
+				C9F2B1142B6382D4003D2BF2 /* FavoriteView.swift in Sources */,
 				C90C0B832B5BB11900B497CF /* RegistrationView.swift in Sources */,
 				C90B26152B5AEE6D00C37C22 /* User.swift in Sources */,
 				C90C0B7F2B5BAF3A00B497CF /* LogInView.swift in Sources */,
@@ -591,8 +621,10 @@
 				C90B260D2B5ADE9900C37C22 /* ProfileView.swift in Sources */,
 				C999D25F2B44690200504175 /* ImageLoader.swift in Sources */,
 				C9CE7FCE2B3EC2260086BAA2 /* TopMovieListView.swift in Sources */,
+				C9F2B11C2B638324003D2BF2 /* DroppedView.swift in Sources */,
 				C90B261E2B5B05F100C37C22 /* SearchViewModel.swift in Sources */,
 				C90B26082B5ADCDD00C37C22 /* SearchView.swift in Sources */,
+				C9F2B1182B6382FE003D2BF2 /* CompletedView.swift in Sources */,
 				C90C0B892B5BCEE700B497CF /* AuthViewModel.swift in Sources */,
 				C90B26012B5AD8DC00C37C22 /* ContentView.swift in Sources */,
 				C9CE7FCC2B3EC2260086BAA2 /* TMDBMovieList2_0App.swift in Sources */,
