@@ -9,7 +9,15 @@ import SwiftUI
 
 struct CompletedView: View {
     var body: some View {
-        Text("CompletedView")
+        VStack {
+            //Header: Bookmark title and counter
+            CellHeaderView(value: 10, title: "Completed", imageName: "checkmark.circle.fill", color: .purple)
+                .padding(.top)
+            
+            //Body: List of Movies
+            MovieListView()
+        }
+        .padding(.top, -70)
     }
 }
 

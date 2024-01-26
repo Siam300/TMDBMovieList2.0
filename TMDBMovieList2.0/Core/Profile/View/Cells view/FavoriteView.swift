@@ -9,7 +9,15 @@ import SwiftUI
 
 struct FavoriteView: View {
     var body: some View {
-        Text("FavoriteView")
+        VStack {
+            //Header: Bookmark title and counter
+            CellHeaderView(value: 10, title: "Favorite", imageName: "star.fill", color: .yellow)
+                .padding(.top)
+            
+            //Body: List of Movies
+            MovieListView()
+        }
+        .padding(.top, -70)
     }
 }
 

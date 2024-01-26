@@ -9,7 +9,13 @@ import SwiftUI
 
 struct DroppedView: View {
     var body: some View {
-        Text("DroppedView")
+        VStack {
+            //Header: Bookmark title and counter
+            CellHeaderView(value: 10, title: "Dropped", imageName: "xmark.app.fill", color: .red)            
+            //Body: List of Movies
+            MovieListView()
+        }
+        .padding(.top, -70)
     }
 }
 

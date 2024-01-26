@@ -9,7 +9,15 @@ import SwiftUI
 
 struct BookmarkedView: View {
     var body: some View {
-        Text("BookmarkedView")
+        VStack {
+            //Header: Bookmark title and counter
+            CellHeaderView(value: 10, title: "Bookmarked", imageName: "bookmark.fill", color: .cyan)
+                .padding(.top)
+            
+            //Body: List of Movies
+            MovieListView()
+        }
+        .padding(.top, -70)
     }
 }
 

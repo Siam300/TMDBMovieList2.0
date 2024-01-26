@@ -13,26 +13,10 @@ struct SearchView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                ForEach((0 ... 10), id: \.self) { user in
-                        HStack{
-                            Text("Movie Image")
-                            
-                            VStack(alignment: .leading) {
-                                Text("Movie Name")
-                                    .fontWeight(.semibold)
-                                Text("Movie Rating")
-                            }
-                            .font(.footnote)
-                            Spacer()
-                        }
-                        .foregroundColor(Color.black)
-                        .padding(.horizontal)
-                }
+            MovieListView()
                 .padding(.top, 8)
                 .searchable(text: $searchText, prompt: "Search")
-            }
-            .navigationTitle("Search")
+                .navigationTitle("Search")
         }
     }
 }
